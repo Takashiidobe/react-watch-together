@@ -6,6 +6,7 @@ import ReactPlayer from "react-player";
 import moment from "moment";
 import "./css/main.css";
 import { MdVolumeOff, MdVolumeUp, MdRepeat, MdRedo } from "react-icons/md/";
+import ReactTooltip from "react-tooltip";
 // used to setup the momentduration plugin
 const momentDurationFormatSetup = require("moment-duration-format");
 
@@ -204,46 +205,110 @@ class App extends Component {
               <tr>
                 <th>Controls</th>
                 <td>
-                  <button className="btn stop" onClick={this.stop}>
+                  <button
+                    data-tip
+                    data-for="stop-tooltip"
+                    className="btn stop"
+                    onClick={this.stop}
+                  >
                     Stop
                   </button>
-                  <button className="btn pp" onClick={this.playPause}>
+                  <ReactTooltip id="stop-tooltip" place="bottom">
+                    <span>Stops and clears out the queue</span>
+                  </ReactTooltip>
+                  <button
+                    data-tip
+                    data-for="play-pause-tooltip"
+                    className="btn pp"
+                    onClick={this.playPause}
+                  >
                     {playing ? "Pause" : "Play"}
                   </button>
-                  <button className="btn fs" onClick={this.onClickFullscreen}>
+                  <ReactTooltip id="play-pause-tooltip" place="bottom">
+                    {playing === true ? (
+                      <span>Pauses the video</span>
+                    ) : (
+                      <span>Plays the video</span>
+                    )}
+                  </ReactTooltip>
+                  <button
+                    data-tip
+                    data-for="fullscreen-tooltip"
+                    className="btn fs"
+                    onClick={this.onClickFullscreen}
+                  >
                     Fullscreen
                   </button>
+                  <ReactTooltip id="fullscreen-tooltip" place="bottom">
+                    <span>Makes the video fullscreen</span>
+                  </ReactTooltip>
                   <button
+                    data-tip
+                    data-for="playback-1"
                     className="btn playback"
                     onClick={this.setPlaybackRate}
                     value={1}
                   >
                     1
                   </button>
+                  <ReactTooltip id="playback-1" place="bottom">
+                    <span>Play at normal speed</span>
+                  </ReactTooltip>
                   <button
+                    data-tip
+                    data-for="playback-1.5"
                     className="btn playback"
                     onClick={this.setPlaybackRate}
                     value={1.5}
                   >
                     1.5
                   </button>
+                  <ReactTooltip id="playback-1.5" place="bottom">
+                    <span>Play at 1.5x speed</span>
+                  </ReactTooltip>
                   <button
+                    data-tip
+                    data-for="playback-2"
                     className="btn playback"
                     onClick={this.setPlaybackRate}
                     value={2}
                   >
                     2
                   </button>
-                  <button className="btn sync" onClick={this.sync}>
+                  <ReactTooltip id="playback-2" place="bottom">
+                    <span>Play at 2x speed</span>
+                  </ReactTooltip>
+                  <button
+                    data-tip
+                    data-for="sync-play"
+                    className="btn sync"
+                    onClick={this.sync}
+                  >
                     Sync
                   </button>
-                  <button className="btn ff" onClick={this.fastForward}>
+                  <ReactTooltip id="sync-play" place="bottom">
+                    <span>Sync all viewers to your position</span>
+                  </ReactTooltip>
+                  <button
+                    data-tip
+                    data-for="fast-forward"
+                    className="btn ff"
+                    onClick={this.fastForward}
+                  >
                     >>
                   </button>
+                  <ReactTooltip id="fast-forward" place="bottom">
+                    <span>Skip ahead 10 seconds</span>
+                  </ReactTooltip>
                   <button
+                    data-tip
+                    data-for="rewind-tooltip"
                     className="btn rewind"
                     onClick={this.rewind}
                   >{`<<`}</button>
+                  <ReactTooltip id="rewind-tooltip" place="bottom">
+                    <span>Rewind 10 seconds</span>
+                  </ReactTooltip>
                 </td>
               </tr>
               <tr>
@@ -287,14 +352,30 @@ class App extends Component {
                   <label htmlFor="muted">Muted</label>
                 </th>
                 <td>
-                  <input
-                    id="muted"
-                    type="checkbox"
-                    checked={muted}
-                    onChange={this.toggleMuted}
-                  />
-                  <MdVolumeOff />
-                  <MdVolumeUp />
+                  {muted && (
+                    <div>
+                      <MdVolumeOff
+                        data-tip
+                        data-for="muted"
+                        onClick={this.toggleMuted}
+                      />
+                      <ReactTooltip id="muted" place="right">
+                        <span>muted</span>
+                      </ReactTooltip>
+                    </div>
+                  )}
+                  {!muted && (
+                    <div>
+                      <MdVolumeUp
+                        data-tip
+                        data-for="on"
+                        onClick={this.toggleMuted}
+                      />
+                      <ReactTooltip id="on" place="right">
+                        <span>on</span>
+                      </ReactTooltip>
+                    </div>
+                  )}
                 </td>
               </tr>
               <tr>
@@ -302,26 +383,48 @@ class App extends Component {
                   <label htmlFor="loop">Loop</label>
                 </th>
                 <td>
-                  <input
-                    id="loop"
-                    type="checkbox"
-                    checked={loop}
-                    onChange={this.toggleLoop}
-                  />
-                  <MdRepeat />
-                  <MdRedo />
+                  {loop && (
+                    <div>
+                      <MdRepeat
+                        data-tip
+                        data-for="looping"
+                        onClick={this.toggleLoop}
+                      />
+                      <ReactTooltip id="looping" place="right">
+                        <span>looping</span>
+                      </ReactTooltip>
+                    </div>
+                  )}
+                  {!loop && (
+                    <div>
+                      <MdRedo
+                        data-tip
+                        data-for="no-repeat"
+                        onClick={this.toggleLoop}
+                      />
+                      <ReactTooltip id="no-repeat" place="right">
+                        <span>no repeat</span>
+                      </ReactTooltip>
+                    </div>
+                  )}
                 </td>
               </tr>
               <tr>
                 <th>Played</th>
                 <td>
-                  <progress max={1} value={played} />
+                  <progress data-tip data-for="played" max={1} value={played} />
+                  <ReactTooltip id="played" place="right">
+                    <span>{`${Math.ceil(played * 100)}%`}</span>
+                  </ReactTooltip>
                 </td>
               </tr>
               <tr>
                 <th>Loaded</th>
                 <td>
-                  <progress max={1} value={loaded} />
+                  <progress data-tip data-for="loaded" max={1} value={loaded} />
+                  <ReactTooltip id="loaded" place="right">
+                    <span>{`${Math.ceil(loaded * 100)}%`}</span>
+                  </ReactTooltip>
                 </td>
               </tr>
             </tbody>
