@@ -1,0 +1,2 @@
+1. manipulate the play/pause button to emit a socket event
+2. create rooms for users
