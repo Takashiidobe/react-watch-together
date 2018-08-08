@@ -315,6 +315,8 @@ class App extends Component {
                 <th>Seek</th>
                 <td>
                   <input
+                    data-tip
+                    data-for="seek-tooltip"
                     type="range"
                     min={0}
                     max={1}
@@ -324,6 +326,9 @@ class App extends Component {
                     onChange={this.onSeekChange}
                     onMouseUp={this.onSeekMouseUp}
                   />
+                  <ReactTooltip id="seek-tooltip" place="bottom">
+                    <span>{Math.ceil(played * 100)}%</span>
+                  </ReactTooltip>
                   {moment
                     .duration(this.state.playedSeconds, "seconds")
                     .format("hh:mm:ss")}{" "}
@@ -337,6 +342,8 @@ class App extends Component {
                 <th>Volume</th>
                 <td>
                   <input
+                    data-tip
+                    data-for="volume-tooltip"
                     type="range"
                     min={0}
                     max={1}
@@ -344,6 +351,9 @@ class App extends Component {
                     value={volume}
                     onChange={this.setVolume}
                   />
+                  <ReactTooltip id="volume-tooltip" place="bottom">
+                    <span>{Math.ceil(volume * 100)}%</span>
+                  </ReactTooltip>
                   {Math.round(volume * 100)}
                 </td>
               </tr>
@@ -434,12 +444,17 @@ class App extends Component {
           <th>Custom URL</th>
           <td>
             <input
+              data-tip
+              data-for="custom-url-tooltip"
               ref={input => {
                 this.urlInput = input;
               }}
               type="text"
               placeholder="Enter URL"
             />
+            <ReactTooltip id="custom-url-tooltip" place="right">
+              <span>Change the playing video with a custom URL</span>
+            </ReactTooltip>
             <button
               onClick={() => {
                 socket.emit("change url", this.urlInput.value);
