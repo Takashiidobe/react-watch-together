@@ -200,36 +200,3 @@ input[type="range"]:focus::-ms-fill-lower {
 
 input[type="range"]:focus::-ms-fill-upper {
   background: rgba(0, 1, 206, 0.11); }
-
-#navbar {
-  grid-area: navbar; }
-
-ul,
-li {
-  list-style-type: none;
-  margin: 0;
-  padding: 0.2rem 0; }
-
-.App {
-  display: grid;
-  margin: 3rem;
-  grid-gap: 2rem 1rem;
-  grid-template-columns: 1fr;
-  grid-template-areas: "navbar" "player" "chat" "controls"; }
-  .App .player-wrapper {
-    position: relative;
-    padding-top: 56.25%; }
-  .App .react-player {
-    grid-area: player;
-    position: absolute;
-    top: 0;
-    left: 0; }
-  .App .chat {
-    grid-area: chat; }
-  .App #controls {
-    grid-area: controls; }
-
-@media screen and (max-width: 1280px) {
-  .App {
-    grid-template-columns: 1fr;
-    grid-template-areas: "player" "controls"; } }
